@@ -1,64 +1,250 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Berikut adalah dokumentasi API dengan format yang sesuai untuk aplikasi **Threads**:
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+# **Dokumentasi API: Threads**
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Dokumentasi ini menjelaskan cara penggunaan API dari sistem pengelolaan **Threads**. API ini memiliki beberapa resource utama: **Threads**, **Messages**, dan **Users**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## **Autentikasi**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Semua endpoint bersifat **public** (tidak menggunakan token autentikasi) pada versi awal API ini.
 
-## Learning Laravel
+**Base URL**:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+http://localhost:8000/api
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## **1. Threads**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### **GET /threads**
 
-### Premium Partners
+**Deskripsi**: Menampilkan semua thread yang ada.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+**Response (Success - 200 OK)**:
 
-## Contributing
+```json
+[
+  {
+    "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+    "user_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+    "content": "Ini adalah thread pertama.",
+    "created_at": "2025-05-12T08:00:00.000000Z",
+    "updated_at": "2025-05-12T08:00:00.000000Z"
+  }
+]
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **GET /threads/{id}**
 
-## Code of Conduct
+**Deskripsi**: Menampilkan detail thread berdasarkan `id`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Path Parameters**:
 
-## Security Vulnerabilities
+* `id` (string, required): ID thread yang ingin dilihat.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Response (Success - 200 OK)**:
 
-## License
+```json
+{
+  "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "user_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "content": "Ini adalah thread pertama.",
+  "created_at": "2025-05-12T08:00:00.000000Z",
+  "updated_at": "2025-05-12T08:00:00.000000Z"
+}
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **POST /threads**
+
+**Deskripsi**: Menambahkan thread baru.
+
+**Body JSON**:
+
+```json
+{
+  "user_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "content": "Ini adalah thread pertama dari Sintya."
+}
+```
+
+**Response (Success - 201 Created)**:
+
+```json
+{
+  "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "user_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "content": "Ini adalah thread pertama dari Sintya.",
+  "created_at": "2025-05-12T08:00:00.000000Z",
+  "updated_at": "2025-05-12T08:00:00.000000Z"
+}
+```
+
+### **PUT /threads/{id}**
+
+**Deskripsi**: Mengupdate konten thread berdasarkan `id`.
+
+**Path Parameters**:
+
+* `id` (string, required): ID thread yang ingin diperbarui.
+
+**Body JSON**:
+
+```json
+{
+  "content": "Ini adalah konten yang sudah diperbarui."
+}
+```
+
+**Response (Success - 200 OK)**:
+
+```json
+{
+  "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "user_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "content": "Ini adalah konten yang sudah diperbarui.",
+  "created_at": "2025-05-12T08:00:00.000000Z",
+  "updated_at": "2025-05-12T08:00:00.000000Z"
+}
+```
+
+### **DELETE /threads/{id}**
+
+**Deskripsi**: Menghapus thread berdasarkan `id`.
+
+**Path Parameters**:
+
+* `id` (string, required): ID thread yang ingin dihapus.
+
+**Response (Success - 200 OK)**:
+
+```json
+{
+  "message": "Thread deleted successfully"
+}
+```
+
+---
+
+## **2. Messages**
+
+### **GET /messages**
+
+**Deskripsi**: Menampilkan semua pesan dalam percakapan.
+
+**Response (Success - 200 OK)**:
+
+```json
+[
+  {
+    "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+    "conversation_id": "1bdcb857-8ea6-41d8-9f20-f04ae39f9d12",
+    "sender_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+    "message": "Halo Sintya!",
+    "is_read": false,
+    "created_at": "2025-05-12T08:00:00.000000Z",
+    "updated_at": "2025-05-12T08:00:00.000000Z"
+  }
+]
+```
+
+### **GET /messages/{id}**
+
+**Deskripsi**: Menampilkan detail pesan berdasarkan `id`.
+
+**Path Parameters**:
+
+* `id` (string, required): ID pesan yang ingin dilihat.
+
+**Response (Success - 200 OK)**:
+
+```json
+{
+  "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "conversation_id": "1bdcb857-8ea6-41d8-9f20-f04ae39f9d12",
+  "sender_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "message": "Halo Sintya!",
+  "is_read": false,
+  "created_at": "2025-05-12T08:00:00.000000Z",
+  "updated_at": "2025-05-12T08:00:00.000000Z"
+}
+```
+
+### **POST /messages**
+
+**Deskripsi**: Mengirim pesan baru dalam percakapan.
+
+**Body JSON**:
+
+```json
+{
+  "conversation_id": "1bdcb857-8ea6-41d8-9f20-f04ae39f9d12",
+  "sender_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "message": "Halo Sintya!",
+  "is_read": false
+}
+```
+
+**Response (Success - 201 Created)**:
+
+```json
+{
+  "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "conversation_id": "1bdcb857-8ea6-41d8-9f20-f04ae39f9d12",
+  "sender_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "message": "Halo Sintya!",
+  "is_read": false,
+  "created_at": "2025-05-12T08:00:00.000000Z",
+  "updated_at": "2025-05-12T08:00:00.000000Z"
+}
+```
+
+### **PUT /messages/{id}**
+
+**Deskripsi**: Mengupdate pesan berdasarkan `id`.
+
+**Path Parameters**:
+
+* `id` (string, required): ID pesan yang ingin diperbarui.
+
+**Body JSON**:
+
+```json
+{
+  "message": "Pesan yang sudah diperbarui",
+  "is_read": true
+}
+```
+
+**Response (Success - 200 OK)**:
+
+```json
+{
+  "id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "conversation_id": "1bdcb857-8ea6-41d8-9f20-f04ae39f9d12",
+  "sender_id": "496e82d7-a804-4224-9fbf-41ae275419e9",
+  "message": "Pesan yang sudah diperbarui",
+  "is_read": true,
+  "created_at": "2025-05-12T08:00:00.000000Z",
+  "updated_at": "2025-05-12T08:00:00.000000Z"
+}
+```
+
+### **DELETE /messages/{id}**
+
+**Deskripsi**: Menghapus pesan berdasarkan `id`.
+
+**Path Parameters**:
+
+* `id` (string, required): ID pesan yang ingin dihapus.
+
+**Response (Success - 200 OK)**:
+
+```json
+{
+  "message": "Message deleted successfully"
+}
+```
